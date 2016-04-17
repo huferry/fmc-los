@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23736C5F-A33A-4AC4-86DA-AB4C39F98238}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LoSAdmin</RootNamespace>
+    <AssemblyName>LoSAdmin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Automator.ico</ApplicationIcon>
+    <ManifestCertificateThumbprint>4229F6ED193E8AB2A38F6F6C8867BF6B798AC22D</ManifestCertificateThumbprint>
+    <ManifestKeyFile>LoSAdmin_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>W:\Temp\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading">
+      <HintPath>..\packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormAbsentDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAbsentDialog.Designer.cs">
+      <DependentUpon>FormAbsentDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBlockings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBlockings.Designer.cs">
+      <DependentUpon>FormBlockings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormClasses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormClasses.Designer.cs">
+      <DependentUpon>FormClasses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDateDialog.Designer.cs">
+      <DependentUpon>FormDateDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormEditBlockings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditBlockings.Designer.cs">
+      <DependentUpon>FormEditBlockings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormEnrolClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEnrolClass.Designer.cs">
+      <DependentUpon>FormEnrolClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMeetingAttendance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMeetingAttendance.Designer.cs">
+      <DependentUpon>FormMeetingAttendance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMeetingPlanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMeetingPlanner.Designer.cs">
+      <DependentUpon>FormMeetingPlanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMeetings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMeetings.Designer.cs">
+      <DependentUpon>FormMeetings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormNewCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewCourse.Designer.cs">
+      <DependentUpon>FormNewCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormNewSeason.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewSeason.Designer.cs">
+      <DependentUpon>FormNewSeason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRelations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRelations.Designer.cs">
+      <DependentUpon>FormRelations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWaiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWaiting.Designer.cs">
+      <DependentUpon>FormWaiting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Attendance List.rdlc" />
+    <EmbeddedResource Include="FormAbsentDialog.resx">
+      <DependentUpon>FormAbsentDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBlockings.resx">
+      <DependentUpon>FormBlockings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormClasses.resx">
+      <DependentUpon>FormClasses.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDateDialog.resx">
+      <DependentUpon>FormDateDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditBlockings.resx">
+      <DependentUpon>FormEditBlockings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEnrolClass.resx">
+      <DependentUpon>FormEnrolClass.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMeetingAttendance.resx">
+      <DependentUpon>FormMeetingAttendance.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMeetingPlanner.resx">
+      <DependentUpon>FormMeetingPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMeetings.resx">
+      <DependentUpon>FormMeetings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewCourse.resx">
+      <DependentUpon>FormNewCourse.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewSeason.resx">
+      <DependentUpon>FormNewSeason.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRelations.resx">
+      <DependentUpon>FormRelations.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWaiting.resx">
+      <DependentUpon>FormWaiting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportMeetingAttendance.rdlc" />
+    <EmbeddedResource Include="ReportStudentInvitation.rdlc" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\DataSources\Los.Core.Relation.datasource" />
+    <None Include="Properties\DataSources\LoSAdmin.Reports.StudentAttendance.datasource" />
+    <None Include="Properties\DataSources\LoSAdmin.Reports.StudentEnrolInvitation.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reports\StudentAttendance.cs" />
+    <Compile Include="Reports\StudentEnrolInvitation.cs" />
+    <Compile Include="Reports\StudentMeetingAttendance.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="dto\Course.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Automator.ico" />
+    <None Include="Resources\feel-sick-icon.png" />
+    <None Include="Properties\DataSources\LoSAdmin.Reports.StudentMeetingAttendance.datasource" />
+    <None Include="Resources\printer1.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\user_accept.png" />
+    <None Include="Resources\community_users1.png" />
+    <None Include="Resources\play.png" />
+    <None Include="LoSAdmin_TemporaryKey.pfx" />
+    <None Include="Resources\calculator.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\blog_post_edit.png" />
+    <None Include="Resources\remove.png" />
+    <None Include="Resources\calendar_date.png" />
+    <None Include="Resources\process.png" />
+    <None Include="Resources\application_remove.png" />
+    <None Include="Resources\community_users.png" />
+    <None Include="Resources\application_add.png" />
+    <None Include="Resources\mail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Los.Core.csproj">
+      <Project>{CFC19932-144D-4270-80C4-20A858E164B2}</Project>
+      <Name>Los.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Folder Include="dto\" />
+  </ItemGroup>
+</Project>
