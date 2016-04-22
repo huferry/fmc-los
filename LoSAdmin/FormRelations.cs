@@ -198,7 +198,8 @@ namespace LoSAdmin
             rel.Gender = radioButtonMale.Checked ? Gender.Male : Gender.Female;
             rel.Birthday = dateTimePickerBirthdate.Value;
             rel.PhoneHome = textBoxPhoneHome.Text;
-            rel.PhoneMobile = textBoxPhoneMobile.Text;            
+            rel.PhoneMobile = textBoxPhoneMobile.Text;     
+            rel.Email = textBoxEmail.Text;
         }
 
         private Mode Mode
