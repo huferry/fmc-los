@@ -11,9 +11,15 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::resource('relation', 'RelationController');
+Route::get('relation/{id}', 'RelationController@show');
+Route::get('relation/name/{name}', 'RelationController@showByName');
+Route::get('class/year/{year}', 'ClassesController@showByYear');
+Route::get('class/{class_id}/relation', 'ClassesController@showRelation');
+Route::get('class/{id}', 'ClassesController@show');
+Route::get('class/{class_id}/meeting', 'ClassesController@showMeeting');
