@@ -13,15 +13,25 @@ class RelationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $rel = App\Relation::find($id);
-        return json_encode($rel);
+    public function show(Request $request, $id) {
+        return App\Relation::where('relation_id', $id)
+            ->select($this->getSelection($request))
+            ->get();
     }
 
-    public function showByName($name)
-    {
-        $rels = App\Relation::whereRaw("firstname like '%$name%' or lastname like '%$name%'")->get();
+    public function showByName(Request $request, $name) {
+        $rels = App\Relation::
+                select($this->getSelection($request))
+                ->whereRaw("firstname like '%$name%' or lastname like '%$name%'")
+                ->get();
         return $rels->toJson();
     }
+
+    private function getSelection(Request $request) {
+        if ($request->input('full') == '1') {
+            return '*';
+        }
+        return array('relation_id', 'firstname', 'lastname');
+    }
+
 }
