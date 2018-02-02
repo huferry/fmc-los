@@ -35,6 +35,9 @@ namespace LoSAdmin
                 relations = Relation.GetAll().OrderBy(x => x.Firstname + x.Surname).ToList();
                 FormWaiting.SetProgress(90);
                 UpdateList(null);
+
+                comboBoxCareLeader.Items.AddRange(relations.Where(r => r.IsCareLeader).ToArray());
+
                 // filter check event
                 var need_approval_event = Observable.FromEventPattern<EventArgs>(checkBoxNeedApproval, "CheckedChanged")
                                             .Select(x => textBoxSearch.Text.Trim());
@@ -57,7 +60,6 @@ namespace LoSAdmin
                 }
 
                 Mode = Mode.View;          
-
             }
             finally
             {
@@ -159,6 +161,9 @@ namespace LoSAdmin
             textBoxCurrentCourse.Text = current_course == null ? "" : current_course.Name;
             textBoxLastCourse.Text = last_course == null ? "" : last_course.Name + " (" + last_course.DateEnd.ToString("MMM/yyyy") + ")";
             textBoxNextPossible.Text = next_course.Count() == 0 ? "" : next_course.First().Name;
+
+            checkBoxIsCareLeader.Checked = rel.IsCareLeader;
+            comboBoxCareLeader.SelectedItem = relations.SingleOrDefault(r => r.Id == rel.CareLeaderId);
         }
 
         private void FormRelations_Shown(object sender, EventArgs e)
@@ -200,6 +205,8 @@ namespace LoSAdmin
             rel.PhoneHome = textBoxPhoneHome.Text;
             rel.PhoneMobile = textBoxPhoneMobile.Text;     
             rel.Email = textBoxEmail.Text;
+            rel.IsCareLeader = checkBoxIsCareLeader.Checked;
+            rel.CareLeaderId = (comboBoxCareLeader.SelectedItem as Relation)?.Id;
         }
 
         private Mode Mode
@@ -314,5 +321,9 @@ namespace LoSAdmin
             }
         }
 
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

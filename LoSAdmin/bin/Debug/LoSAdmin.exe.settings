@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DatabaseConnection>
-    <Host></Host>
-    <User></User>
-    <Password></Password>
-    <Database></Database>
+    <Host>fmc-online.nl</Host>
+    <User>qb306340_los-d</User>
+    <Password>dev-los</Password>
+    <Database>qb306340_los-d</Database>
   </DatabaseConnection>
 </Settings>

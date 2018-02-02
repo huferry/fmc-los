@@ -16,7 +16,7 @@
     <ManifestCertificateThumbprint>4229F6ED193E8AB2A38F6F6C8867BF6B798AC22D</ManifestCertificateThumbprint>
     <ManifestKeyFile>LoSAdmin_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>W:\Temp\publish\</PublishUrl>
     <Install>true</Install>
@@ -310,7 +310,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="dto\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

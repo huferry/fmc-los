@@ -34,7 +34,7 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.listViewRelations = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxRelation = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxNextPossible = new System.Windows.Forms.TextBox();
@@ -78,6 +78,9 @@
             this.buttonRemove = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.Panel();
             this.buttonEnrollment = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBoxCareLeader = new System.Windows.Forms.ComboBox();
+            this.checkBoxIsCareLeader = new System.Windows.Forms.CheckBox();
             this.groupBoxSearch.SuspendLayout();
             this.groupBoxRelation.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -129,15 +132,15 @@
             // 
             // listViewRelations
             // 
-            this.listViewRelations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.listViewRelations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listViewRelations.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listViewRelations.FullRowSelect = true;
             this.listViewRelations.HideSelection = false;
             this.listViewRelations.Location = new System.Drawing.Point(13, 92);
             this.listViewRelations.Name = "listViewRelations";
-            this.listViewRelations.Size = new System.Drawing.Size(316, 559);
+            this.listViewRelations.Size = new System.Drawing.Size(316, 607);
             this.listViewRelations.TabIndex = 1;
             this.listViewRelations.UseCompatibleStateImageBehavior = false;
             this.listViewRelations.View = System.Windows.Forms.View.Details;
@@ -150,8 +153,11 @@
             // 
             // groupBoxRelation
             // 
-            this.groupBoxRelation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxRelation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxRelation.Controls.Add(this.checkBoxIsCareLeader);
+            this.groupBoxRelation.Controls.Add(this.comboBoxCareLeader);
+            this.groupBoxRelation.Controls.Add(this.label14);
             this.groupBoxRelation.Controls.Add(this.groupBox1);
             this.groupBoxRelation.Controls.Add(this.buttonCancel);
             this.groupBoxRelation.Controls.Add(this.buttonSave);
@@ -169,7 +175,7 @@
             this.groupBoxRelation.Enabled = false;
             this.groupBoxRelation.Location = new System.Drawing.Point(344, 83);
             this.groupBoxRelation.Name = "groupBoxRelation";
-            this.groupBoxRelation.Size = new System.Drawing.Size(474, 570);
+            this.groupBoxRelation.Size = new System.Drawing.Size(508, 618);
             this.groupBoxRelation.TabIndex = 2;
             this.groupBoxRelation.TabStop = false;
             this.groupBoxRelation.Text = "Relation Detail";
@@ -182,7 +188,7 @@
             this.groupBox1.Controls.Add(this.textBoxCurrentCourse);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Location = new System.Drawing.Point(163, 379);
+            this.groupBox1.Location = new System.Drawing.Point(163, 399);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(273, 112);
             this.groupBox1.TabIndex = 13;
@@ -246,7 +252,7 @@
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Image = ((System.Drawing.Image)(resources.GetObject("buttonCancel.Image")));
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonCancel.Location = new System.Drawing.Point(408, 497);
+            this.buttonCancel.Location = new System.Drawing.Point(442, 545);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(60, 65);
             this.buttonCancel.TabIndex = 12;
@@ -262,7 +268,7 @@
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSave.Image = ((System.Drawing.Image)(resources.GetObject("buttonSave.Image")));
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonSave.Location = new System.Drawing.Point(342, 497);
+            this.buttonSave.Location = new System.Drawing.Point(376, 545);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(60, 65);
             this.buttonSave.TabIndex = 11;
@@ -289,7 +295,7 @@
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(14, 379);
+            this.pictureBox1.Location = new System.Drawing.Point(11, 389);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(129, 162);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -304,12 +310,13 @@
             this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.textBoxPhoneHome);
             this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Location = new System.Drawing.Point(11, 253);
+            this.groupBox5.Location = new System.Drawing.Point(11, 239);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(426, 113);
             this.groupBox5.TabIndex = 8;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Contact Information";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // textBoxEmail
             // 
@@ -619,11 +626,39 @@
             this.buttonEnrollment.UseVisualStyleBackColor = true;
             this.buttonEnrollment.Click += new System.EventHandler(this.buttonEnrollment_Click);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(27, 365);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(61, 13);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "Care leader";
+            // 
+            // comboBoxCareLeader
+            // 
+            this.comboBoxCareLeader.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCareLeader.FormattingEnabled = true;
+            this.comboBoxCareLeader.Location = new System.Drawing.Point(94, 362);
+            this.comboBoxCareLeader.Name = "comboBoxCareLeader";
+            this.comboBoxCareLeader.Size = new System.Drawing.Size(182, 21);
+            this.comboBoxCareLeader.TabIndex = 15;
+            // 
+            // checkBoxIsCareLeader
+            // 
+            this.checkBoxIsCareLeader.AutoSize = true;
+            this.checkBoxIsCareLeader.Location = new System.Drawing.Point(297, 364);
+            this.checkBoxIsCareLeader.Name = "checkBoxIsCareLeader";
+            this.checkBoxIsCareLeader.Size = new System.Drawing.Size(84, 17);
+            this.checkBoxIsCareLeader.TabIndex = 16;
+            this.checkBoxIsCareLeader.Text = "Care Leader";
+            this.checkBoxIsCareLeader.UseVisualStyleBackColor = true;
+            // 
             // FormRelations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 664);
+            this.ClientSize = new System.Drawing.Size(866, 712);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.groupBoxRelation);
             this.Controls.Add(this.listViewRelations);
@@ -703,5 +738,8 @@
         private System.Windows.Forms.Button buttonEnrollment;
         private System.Windows.Forms.TextBox textBoxNextPossible;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBoxIsCareLeader;
+        private System.Windows.Forms.ComboBox comboBoxCareLeader;
+        private System.Windows.Forms.Label label14;
     }
 }
