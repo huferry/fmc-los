@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Linq;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Web;
 
 namespace LoSAdmin.dto
 {
-	[DataContract]
+    [DataContract]
 	public class Course
 	{		
 		[DataMember]
@@ -23,7 +23,7 @@ namespace LoSAdmin.dto
 		[DataMember]
 		public string ReportDate { get; set; }
 
-		static public string ExportToJson(Los.Core.Course[] courses)
+		public static string ExportToJson(Los.Core.Course[] courses)
 		{
 			DataContractJsonSerializer serializer = new DataContractJsonSerializer (typeof(Course[]));
 
@@ -38,7 +38,7 @@ namespace LoSAdmin.dto
 			return reader.ReadToEnd ();
 		}
 
-		static public Course Import(Los.Core.Course course)
+		public static Course Import(Los.Core.Course course)
 		{
 			var students = course
 				.GetStudents ()
@@ -46,7 +46,7 @@ namespace LoSAdmin.dto
 					new Student {
 						Id = s.GetHashCode(),
 						Name = HttpUtility.HtmlEncode( string.Format("{0} {1}", s.Firstname, s.Surname) ),
-						System = course.GetStudentStatus(s).System
+						System = course.GetStudentStatus(s).System ?? 0
 					})
 				.OrderBy(s => s.Name)
 				.ToArray();
@@ -89,7 +89,7 @@ namespace LoSAdmin.dto
 		[DataMember]
 		public IDictionary<int, string> Statuses { get; set; } 
 
-		static internal Meeting Import(DateTime date, Student[] students, Los.Core.DayAttendance[] attends)
+		internal static Meeting Import(DateTime date, Student[] students, Los.Core.DayAttendance[] attends)
 		{
 			var statuses = new Dictionary<int, string> ();
 

@@ -9,7 +9,6 @@ namespace Los.Core
     public class Course
     {
         private List<Meeting> meetings;
-        private readonly Dictionary<int, StudentCourseStatus> studentCourseStatus = new Dictionary<int, StudentCourseStatus>();
 
         public virtual bool IsActive => DateEnd.Date >= DateTime.Today.Date;
 
@@ -58,7 +57,7 @@ namespace Los.Core
         public static Course GetLastFinishedCourseByRelation(Relation student)
         {
             return GetByStudent(student)
-                .Where(x => x.GetStudentStatus(student).Finished)
+                .Where(x => x.GetStudentStatus(student).IsFinished)
                 .OrderBy(x => x.Level)
                 .LastOrDefault();
         }
@@ -138,14 +137,9 @@ namespace Los.Core
 
         public virtual IList<ClassRelation> Students { get; set; }
 
-        public virtual StudentCourseStatus GetStudentStatus(Relation student)
+        public virtual ClassRelation GetStudentStatus(Relation student)
         {
-            throw new NotImplementedException("should be replaced by ClassRelation class");
-            //if (!studentCourseStatus.Keys.Contains(student.Id))
-            //{
-            //    studentCourseStatus.Add(student.Id, StudentCourseStatus.GetStatus(Id, student.Id));
-            //}
-            //return studentCourseStatus[student.Id];
+            return Students.FirstOrDefault(r => r.Student.Id == student.Id);
         }
 
         public virtual void EnrolStudent(Relation rel)
@@ -186,7 +180,7 @@ namespace Los.Core
 
         public virtual bool CanDelete()
         {
-            return (Id != -1) && (GetStudents().Count() == 0);
+            return Id > 0 && !Students.Any();
         }
 
         public virtual IEnumerable<Meeting> Meetings
@@ -211,7 +205,9 @@ namespace Los.Core
         public virtual Meeting AddMeetingByLesson(Lesson lesson, DateTime date)
         {
             if (GetMeetingByLesson(lesson) != null)
+            {
                 throw new Exception("Meeting for the lesson already exists");
+            }
 
             var m = new Meeting(this, lesson, date);
             meetings.Add(m);

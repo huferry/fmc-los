@@ -6,7 +6,7 @@ namespace Core
     {
         public virtual Course Course { get; set; }
         public virtual Relation Student { get; set; }
-        public virtual string System { get; set; }
+        public virtual int? System { get; set; }
         public virtual bool IsFinished { get; set; }
 
 #pragma warning disable 659

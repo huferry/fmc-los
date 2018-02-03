@@ -1,52 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Data;
+using Core;
 
 namespace Los.Core
 {
-
-    public enum LessonType { Doctrine, Seminar };
+    public enum LessonType
+    {
+        Doctrine,
+        Seminar
+    }
 
     public class Lesson
     {
-        private int id = -1;
-		private int level_id = -1;
-		private int order = -1;
-        private string code = "";
-        private string name = "";
-        private bool homework = false;
+        public virtual int Id { get; set; }
 
-        private Lesson()
-        {
-        }
+        public virtual int Order { get; set; }
 
-        private Lesson(DataRow row)
-        {
-            id = row.Field<int>("lesson_id");
-            level_id = row.Field<int>("lev_level_id");
-            order = row.Field<int>("order");
-            name = row.Field<string>("name");
-            code = row.Field<string>("lesson_type_code");
-            homework = row.Field<sbyte>("has_homework") > 0;
-        }
+        public virtual string Code { get; set; }
 
-        internal int Id
-        {
-            get { return id; }
-        }
-
-        public int Order
-        {
-            get { return order; }
-        }
-
-        public LessonType Type
+        public virtual LessonType Type
         {
             get
             {
-                switch (code.ToUpper())
+                switch (Code.ToUpper())
                 {
                     case "SEM": return LessonType.Seminar;
                     default: return LessonType.Doctrine;
@@ -54,58 +30,33 @@ namespace Los.Core
             }
         }
 
-        public string Name
-        {
-            get { return name; }
-        }
+        public virtual string Name { get; set; }
 
-		public int LevelId {
-			get { return this.level_id; }
-		}
+        public virtual Level Level { get; set; }
 
-        public string GetCompleteName()
-        {
-            return string.Format("[{0} {1}] {2}", Type.ToString(), order, name);
-        }
+        public virtual bool HasHomework { get; set; }
 
-        public bool HasHomework
-        {
-            get { return homework; }
-        }
+        public virtual string Chapter =>
+            string.Format("{0} {1}", Order, Type == LessonType.Doctrine ? "doc" : "sem");
 
-        public string Chapter
+        public virtual string GetCompleteName()
         {
-            get
-            {
-                return string.Format("{0} {1}", order, Type == LessonType.Doctrine ? "doc" : "sem");
-            }
+            return string.Format("[{0} {1}] {2}", Type.ToString(), Order, Name);
         }
 
         public override bool Equals(object obj)
         {
-            return ((obj is Lesson) && ((obj as Lesson).id == this.id));
+            return (obj as Lesson)?.Id == Id;
         }
 
         public override int GetHashCode()
         {
-            return this.id;
+            return Id;
         }
 
-        static internal IEnumerable<Lesson> GetByLevel(Level level)
+        internal static IEnumerable<Lesson> GetByLevel(Level level)
         {
-            var rows = Database.Select("SELECT les.* FROM lesson les WHERE les.lev_level_id = " + level.Id.ToString());
-            foreach (DataRow row in rows)
-                yield return new Lesson(row);
-        }
-
-        static internal Lesson GetById(int lesson_id)
-        {
-            var row = Database.Select("SELECT les.* FROM lesson les WHERE les.lesson_id = " + lesson_id.ToString());
-            if (row.Count() > 0)
-                return new Lesson(row.First());
-            else
-                return new Lesson();
-
+            return Repository.Query<Lesson>().Where(l => l.Level.Id == level.Id);
         }
     }
 }

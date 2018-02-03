@@ -3,73 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using Core;
 
 namespace Los.Core
 {
     public class Level : IComparable
     {
-        private int level_id;
-        private int previous_level_id;
-        private string name;
-        private string code;
         private List<Lesson> lessons = null;
-
-        private Level(DataRow row)
-        {
-            level_id = row.Field<int>("level_id");
-            if (row.IsNull("lev_level_id"))
-                previous_level_id = -1;
-            else
-                previous_level_id = row.Field<int>("lev_level_id");
-            name = row.Field<string>("name");
-            code = row.Field<string>("code");
-        }
 
         #region Properties
 
-        public int Id
-        {
-            get { return level_id; }
-        }
+        public virtual int Id { get; set; }
 
-        public string Name
-        { get { return name; } }
+        public virtual string Name { get; set; }
 
-        public string Code
-        {
-            get { return code; }
-        }
+        public virtual string Code { get; set; }
+
+        public virtual Level PreviousLevel { get; set; }
 
         #endregion
 
         public override string ToString()
         {
-            return name;
+            return Name;
         }
 
         public override int GetHashCode()
         {
-            return level_id;
+            return Id;
         }
 
-        public Level Next
-        {
-            get
-            {
-                var next = Level.All.Where(x => x.previous_level_id == level_id);
-                if (next.Count() > 0)
-                    return next.First();
-                else
-                    return null;
-            }
-        }
+        public virtual Level Next => Level.All.FirstOrDefault(x => x.PreviousLevel.Id == Id);
 
-        private IEnumerable<Lesson> GetLessons()
-        {
-            return Lesson.GetByLevel(this).OrderBy(x => x.Order);
-        }
+        private IEnumerable<Lesson> GetLessons() => Lesson.GetByLevel(this).OrderBy(x => x.Order);
 
-        public IEnumerable<Lesson> Lessons
+        public virtual IEnumerable<Lesson> Lessons
         {
             get
             {
@@ -84,30 +52,22 @@ namespace Los.Core
 
         #region static data
 
-        static private List<Level> levels = null;
+        private static List<Level> levels = null;
 
-        static private IEnumerable<Level> GetAll()
-        {
-            foreach (DataRow row in Database.Select("SELECT lev.* FROM level lev ORDER BY lev.lev_level_id"))
-            {
-                yield return new Level(row);
-            }
-        }
-
-        static public IEnumerable<Level> All
+        public static IEnumerable<Level> All
         {
             get
             {
                 if (levels == null)
                 {
-                    levels = GetAll().ToList();
+                    levels = Repository.GetAll<Level>().ToList();
                 }
                 return levels;
             }
                 
         }
 
-        static public Level Lowest
+        public static Level Lowest
         {
             get
             {
@@ -115,9 +75,9 @@ namespace Los.Core
             }
         }
 
-        static internal Level ById(int level_id)
+        internal static Level ById(int level_id)
         {
-            return All.Where(x => x.level_id == level_id).First();
+            return All.Where(x => x.Id == level_id).First();
         }
 
         #endregion
@@ -125,7 +85,7 @@ namespace Los.Core
 
         #region IComparable Members
 
-        public int CompareTo(object obj)
+        public virtual int CompareTo(object obj)
         {
             if (obj == null)
                 throw new Exception("Cannot compare Level with null");

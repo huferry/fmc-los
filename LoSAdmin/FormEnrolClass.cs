@@ -29,7 +29,7 @@ namespace LoSAdmin
             form.student = rel;
             form.textBoxName.Text = rel.ToString();
             form.textBoxLastClass.Text = last == null ? "" : last.Name;
-            form.checkBoxFinished.Checked = (last != null) && last.GetStudentStatus(rel).Finished;
+            form.checkBoxFinished.Checked = (last != null) && last.GetStudentStatus(rel).IsFinished;
             form.checkBoxAll_Click(null, null);
             return form.ShowDialog() == DialogResult.OK;
         }

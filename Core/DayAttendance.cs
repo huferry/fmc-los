@@ -26,11 +26,11 @@ namespace Los.Core
                 throw new Exception("The course does not have a meeting for the given date.");
 
             // check student in course
-//            if (!course.HasStudent(student))
+            if (!course.HasStudent(student))
                 throw new Exception("Student is not part of the course.");
 
             // check existing status
-            this.attendances.AddRange(
+            attendances.AddRange(
                 Attendance.GetByCourseStudent(course, student)
                 .Where(x => day_meeting.Contains(x.MeetingId))
                 .ToArray());

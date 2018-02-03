@@ -1,7 +1,5 @@
-﻿using System.ComponentModel;
-using System.Data.Entity.Core.Objects;
+﻿using System.Configuration;
 using System.Linq;
-using System.Reflection;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Los.CoreCore;
@@ -12,10 +10,18 @@ namespace Core
 {
     public class Repository
     {
+        public static readonly ISession Session = new Repository().SessionFactory.OpenSession();
 
         public Repository()
         {
-            var cs = "Server=fmc-online.nl; Port=3306; Database = qb306340_los-d; Uid = qb306340_los-d; Pwd = dev-los;";
+            var host = ConfigurationManager.AppSettings["host"];
+            var db = ConfigurationManager.AppSettings["database"];
+            var user = ConfigurationManager.AppSettings["user"];
+            var pwd = ConfigurationManager.AppSettings["password"];
+            var cs = $"Server={host}; Port=3306; Database={db};" +
+                     $"Uid={user};" +
+                     $"Pwd={pwd};";
+
             SessionFactory = Fluently.Configure()
                 .Database(MySQLConfiguration.Standard
                     .ConnectionString(cs))
@@ -23,22 +29,32 @@ namespace Core
                 .BuildSessionFactory();
         }
 
-        public static readonly ISession Session = new Repository().SessionFactory.OpenSession();
-
         public ISessionFactory SessionFactory { get; }
 
-        public static T Get<T>(object id) => Session.Get<T>(id);
+        public static T Get<T>(object id)
+        {
+            return Session.Get<T>(id);
+        }
 
-        public static T[] GetAll<T>() => Session.Query<T>().ToArray();
+        public static T[] GetAll<T>()
+        {
+            return Session.Query<T>().ToArray();
+        }
 
-        public static void Delete(object entity) => Session.Delete(entity);
+        public static void Delete(object entity)
+        {
+            Session.Delete(entity);
+        }
 
         public static T Save<T>(T entity)
         {
-            Session.Save(entity); 
+            Session.Save(entity);
             return entity;
         }
 
-        public static IQueryable<T> Query<T>() => Session.Query<T>();
+        public static IQueryable<T> Query<T>()
+        {
+            return Session.Query<T>();
+        }
     }
 }

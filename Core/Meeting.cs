@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.Common;
+using Core;
 
 namespace Los.Core
 {
@@ -16,7 +17,7 @@ namespace Los.Core
 
         private Meeting(Course course, DataRow row)
         {
-            this.lesson = Lesson.GetById(row.Field<int>("les_lesson_id"));
+            this.lesson = Repository.Get<Lesson>(row.Field<int>("les_lesson_id"));
             this.course = course;
             id = row.Field<int>("meeting_id");
             date = row.Field<DateTime>("meeting_date");

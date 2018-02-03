@@ -160,12 +160,14 @@ namespace LoSAdmin
                     int i = 1;
                     foreach (Relation rel in students)
                     {
-                        StudentCourseStatus status = course.GetStudentStatus(rel);
+                        var status = course.GetStudentStatus(rel);
                         var item = listViewStudents.Items.Add((i++).ToString());
                         item.Tag = rel;
                         item.SubItems.Add(rel.ToString());
-                        item.SubItems.Add(status.Finished ? "Finished" : "");
-                        item.SubItems.Add(status.System > 1 ? "System " + status.System.ToString() : "");
+                        item.SubItems.Add(status.IsFinished ? "Finished" : "");
+                        item.SubItems.Add(status.System.HasValue
+                            ? $"System {status.System}" 
+                            : string.Empty);
                     }
                     textBoxEnrollments.Text = students.Count().ToString();
                     checkBoxOpenEnrollment.Checked = course.OpenEnrollment;
@@ -261,7 +263,7 @@ namespace LoSAdmin
 
                 if (student != null)
                 {
-                    var finished = displayed_course.GetStudentStatus(student).Finished; 
+                    var finished = displayed_course.GetStudentStatus(student).IsFinished; 
                     markFinishedCourseToolStripMenuItem.Visible = !finished;
                     unmarkFinishedCourseToolStripMenuItem.Visible = finished;
                     removeStudentToolStripMenuItem.Visible = displayed_course.CanRemoveStudent(student);
@@ -368,7 +370,7 @@ namespace LoSAdmin
                 foreach (ListViewItem item in listViewStudents.SelectedItems)
                 {
                     Relation rel = (Relation)item.Tag;
-                    displayed_course.GetStudentStatus(rel).System = 0;
+                    displayed_course.GetStudentStatus(rel).System = null;
                     item.SubItems[3].Text = "";
                 }                
             }
