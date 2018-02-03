@@ -50,7 +50,7 @@ namespace LoSAdmin.Reports
 
         public string ObjectCode
         {
-            get { return relation.ObjectCode.ToString(); }
+            get { return relation.Id.ToString(); }
         }
         
     }

@@ -281,7 +281,7 @@ namespace LoSAdmin
                 int code = int.Parse(textBoxQuickCode.Text);
                 textBoxQuickCode.Text = "";
 
-                var search_relation = course.GetStudents().Where(x => x.ObjectCode == code);
+                var search_relation = course.GetStudents().Where(x => x.Id == code);
 
                 if (search_relation.Count() > 0)
                 {

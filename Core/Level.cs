@@ -27,7 +27,7 @@ namespace Los.Core
 
         #region Properties
 
-        internal int Id
+        public int Id
         {
             get { return level_id; }
         }

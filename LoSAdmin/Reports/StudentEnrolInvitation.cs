@@ -40,7 +40,7 @@ namespace LoSAdmin.Reports
 
         public string Birthday
         {
-            get { return relation.Birthday.ToString("dd/MMM/yyyy"); }
+            get { return relation.Birthday?.ToString("dd/MMM/yyyy"); }
         }
 
         public string Period
@@ -55,7 +55,7 @@ namespace LoSAdmin.Reports
         {
             get
             {
-                return relation.Info["Care Leader"];
+                return relation.CareLeaderId?.ToString();
             }
         }
     }

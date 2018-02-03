@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Core;
 using Los.Core;
 
 namespace LoSAdmin
@@ -55,7 +56,7 @@ namespace LoSAdmin
                 {
                     var courses = active ?
                         Course.GetActiveCourses().ToArray() :
-                        Course.GetAll().ToArray();
+                        Repository.GetAll<Course>();
                     comboBoxClasses.Items.AddRange(courses);
                 }
                 else

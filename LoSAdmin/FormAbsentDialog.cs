@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Reactive.Linq;
 using System.Windows.Forms;
+using Core;
 using Los.Core;
 
 namespace LoSAdmin
@@ -59,7 +60,7 @@ namespace LoSAdmin
             {
                 relations = new HashSet<Relation>();
                 rel_course.Clear();
-                var all = Relation.GetAll().ToList();
+                var all = Repository.GetAll<Relation>().ToList();
                 FormWaiting.ShowMessage("Retrieve students");
                 try
                 {

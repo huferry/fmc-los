@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Core;
 using Los.Core;
 
 namespace LoSAdmin
@@ -98,13 +99,16 @@ namespace LoSAdmin
             var form = new FormNewCourse();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                Course new_course = Course.AddNew(
-                                            (Level)form.comboBoxLevel.SelectedItem,
-                                            form.textBoxName.Text,
-                                            form.textBoxDesc.Text,
-                                            form.dateTimePickerStart.Value,
-                                            form.dateTimePickerFinish.Value);
-                return new_course;
+                var course = new Course
+                {
+                    LevelId = (form.comboBoxLevel.SelectedItem as Level)?.Id ?? 1,
+                    Name = form.textBoxName.Text,
+                    Description = form.textBoxDesc.Text,
+                    DateStart = form.dateTimePickerStart.Value,
+                    DateEnd = form.dateTimePickerFinish.Value
+                };
+
+                return Repository.Save(course);
             }
             return null;
         }

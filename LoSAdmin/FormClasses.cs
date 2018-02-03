@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Core;
 using Los.Core;
 
 namespace LoSAdmin
 {    
     public partial class FormClasses : Form
     {
-        List<Course> all_courses = Course.GetAll().ToList();
+        List<Course> all_courses = Repository.GetAll<Course>().ToList();
 
         Course displayed_course = null;
 
@@ -332,7 +333,7 @@ namespace LoSAdmin
                 foreach (Course c in courses)
                 {
                     all_courses.Remove(c);
-                    c.Delete();
+                    Repository.Delete(c);
                 }
                 UpdateCourseTreeByYear(all_courses);
             }
@@ -394,7 +395,7 @@ namespace LoSAdmin
         private void buttonUpdateDesc_Click(object sender, EventArgs e)
         {
             displayed_course.Description = textBoxDescription.Text;
-            displayed_course.Update();
+            Repository.Save(displayed_course);
         }
     }
 

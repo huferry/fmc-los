@@ -31,6 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,16 +63,21 @@
   <ItemGroup>
     <Compile Include="Attendance.cs" />
     <Compile Include="Calendar.cs" />
+    <Compile Include="ClassRelation.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DayAttendance.cs" />
     <Compile Include="DayMeeting.cs" />
     <Compile Include="Lesson.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="mapping\ClassRelationMapping.cs" />
+    <Compile Include="mapping\CourseMapping.cs" />
+    <Compile Include="mapping\RelationMapping.cs" />
     <Compile Include="Meeting.cs" />
     <Compile Include="ObjectCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relation.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="Searchable.cs" />
     <Compile Include="StudentCourseStatus.cs" />
   </ItemGroup>
