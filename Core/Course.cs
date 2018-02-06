@@ -209,9 +209,16 @@ namespace Los.Core
                 throw new Exception("Meeting for the lesson already exists");
             }
 
-            var m = new Meeting(this, lesson, date);
-            meetings.Add(m);
-            return m;
+            var meeting = new Meeting
+            {
+                Course = this,
+                Lesson = lesson,
+                MeetingDate = date
+            };
+
+            meetings.Add(Repository.Save(meeting));
+
+            return meeting;
         }
 
         public virtual bool IsMeetingComplete()
@@ -257,7 +264,12 @@ namespace Los.Core
                 }
 
                 // create meeting for l and meeting_date
-                meetings.Add(new Meeting(this, lesson, meetingDate));
+                meetings.Add(Repository.Save(new Meeting
+                {
+                    Course = this,
+                    Lesson = lesson,
+                    MeetingDate = meetingDate
+                }));
 
                 lastOrder = lesson.Order;
             }

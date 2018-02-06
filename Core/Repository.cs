@@ -20,7 +20,7 @@ namespace Core
             var pwd = ConfigurationManager.AppSettings["password"];
             var cs = $"Server={host}; Port=3306; Database={db};" +
                      $"Uid={user};" +
-                     $"Pwd={pwd};";
+                     $"Pwd={pwd};SslMode=none";
 
             SessionFactory = Fluently.Configure()
                 .Database(MySQLConfiguration.Standard

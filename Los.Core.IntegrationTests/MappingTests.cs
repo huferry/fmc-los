@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Linq;
+using Core;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,6 +17,8 @@ namespace Los.Core.IntegrationTests
 
             // Act
             var actual = Repository.Get<Relation>(id);
+
+            Repository.GetAll<Relation>().ToArray();
 
             // Assert
             actual.Should().NotBeNull();

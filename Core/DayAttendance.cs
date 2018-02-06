@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Core;
 
 namespace Los.Core
 {
     public class DayAttendance
     {
-        List<Attendance> attendances = new List<Attendance>();
-        DayMeeting day_meeting;
-        Relation student;
+        private List<Attendance> attendances = new List<Attendance>();
+        private DayMeeting dayMeeting;
+        private Relation student;
 
-        internal DayAttendance(DayMeeting day_meeting, IEnumerable<Attendance> attendances, Relation student)
+        internal DayAttendance(DayMeeting dayMeeting, IEnumerable<Attendance> attendances, Relation student)
         {
-            this.day_meeting = day_meeting;
+            this.dayMeeting = dayMeeting;
             this.attendances.AddRange(attendances.ToArray());
             this.student = student;
         }
@@ -21,8 +21,8 @@ namespace Los.Core
         public DayAttendance(Course course, Relation student, DateTime date)
         {
             // retrieve all meetings from course with the given date
-            day_meeting = DayMeeting.GetByCourseDate(course, date);
-            if (day_meeting == null)
+            dayMeeting = DayMeeting.GetByCourseDate(course, date);
+            if (dayMeeting == null)
                 throw new Exception("The course does not have a meeting for the given date.");
 
             // check student in course
@@ -32,35 +32,34 @@ namespace Los.Core
             // check existing status
             attendances.AddRange(
                 Attendance.GetByCourseStudent(course, student)
-                .Where(x => day_meeting.Contains(x.MeetingId))
-                .ToArray());
+                    .Where(x => dayMeeting.Contains(x.Meeting.Id))
+                    .ToArray());
 
             // adding not existing status
-            var existing = attendances.Select(x => x.MeetingId).ToArray();
-            foreach (Meeting m in day_meeting.Meetings)
+            var existing = attendances.Select(x => x.Meeting.Id).ToArray();
+            foreach (var meeting in dayMeeting.Meetings)
             {
-                if (!existing.Contains(m.Id))
+                if (!existing.Contains(meeting.Id))
                 {
-                    attendances.Add(new Attendance(m, student, AttendanceStatus.Unknown));
+                    attendances.Add(new Attendance
+                    {
+                        Meeting = meeting,
+                        Status = AttendanceStatus.Unknown,
+                        Student = student
+                    });
                 }
             }
         }
 
-        public DateTime MeetingDate
-        {
-            get { return day_meeting.MeetingDate; }
-        }
+        public DateTime MeetingDate => dayMeeting.MeetingDate;
 
-        public Relation Student
-        {
-            get { return student; }
-        }
+        public Relation Student => student;
 
         public AttendanceStatus AttendanceStatus
         {
             get
             {
-                var statuses = attendances.Select(x => x.Status);
+                var statuses = attendances.Select(x => x.Status).ToArray();
                 if (statuses.Contains(AttendanceStatus.Present))
                     return AttendanceStatus.Present;
 
@@ -84,64 +83,59 @@ namespace Los.Core
         {
             get
             {
-                string note = "";
-                foreach (string att_note in attendances.Select(x=>x.Note).Distinct())
-                    note += att_note + "\r\n";
+                var note = "";
+                foreach (var attNote in attendances.Select(x => x.Note).Distinct())
+                    note += attNote + "\r\n";
                 return note;
             }
 
             set
             {
-                foreach (Attendance att in attendances)
+                foreach (var att in attendances)
                     att.Note = value;
             }
         }
 
         public void Update()
         {
-            AttendanceStatus status = this.AttendanceStatus;
+            var status = AttendanceStatus;
             var notes = attendances.Select(x => x.Note).Distinct();
             var note = "";
             foreach (var n in notes)
                 note += n + "\r\n";
 
-            foreach (Attendance att in attendances)
+            foreach (var att in attendances)
             {
                 att.Status = status;
                 att.Note = note;
-                att.Update();
+                Repository.Save(att);
             }
         }
 
-        static public IEnumerable<DayAttendance> GetByCourse(Course course)
+        public static IEnumerable<DayAttendance> GetByCourse(Course course)
         {
             var attendances = Attendance.GetByCourse(course).ToList();
             var daymeetings = DayMeeting.GetByCourse(course).ToList();
-            var course_students = course.GetStudents().ToList();
-            
-            foreach (DayMeeting daymeet in daymeetings)
-            {
-                var day_att = attendances.Where(x => daymeet.Contains(x.MeetingId));
-                var students = course_students.Where(s => day_att.Select(x => x.RelationId).Contains(s.Id));
+            var courseStudents = course.GetStudents().ToList();
 
-                foreach(var s in students)
+            foreach (var daymeet in daymeetings)
+            {
+                var dayAtt = attendances.Where(x => daymeet.Contains(x.Meeting.Id)).ToArray();
+                var students = courseStudents.Where(s => dayAtt.Select(x => x.Student.Id).Contains(s.Id));
+
+                foreach (var s in students)
                 {
-                    var student_att = day_att.Where(x => x.RelationId == s.Id);
-                    yield return new DayAttendance(daymeet, student_att, s);
+                    var studentAtt = dayAtt.Where(x => x.Student.Id == s.Id);
+                    yield return new DayAttendance(daymeet, studentAtt, s);
                 }
             }
         }
 
-        static public DayAttendance Find(IEnumerable<DayAttendance> day_attendances, Relation student, DayMeeting day_meeting)
+        public static DayAttendance Find(IEnumerable<DayAttendance> dayAttendances, Relation student,
+            DayMeeting dayMeeting)
         {
-            var search = day_attendances.Where(x => (x.Student.Id == student.Id) && (x.day_meeting.Equals(day_meeting)));
-            if (search.Count() > 1)
-                throw new Exception("Multiple objects are found.");
-
-            if (search.Count() == 0)
-                return null;
-
-            return search.First();
+            return dayAttendances
+                .SingleOrDefault(x => (x.Student.Id == student.Id) && (x.dayMeeting.Equals(dayMeeting)));
         }
     }
 }
